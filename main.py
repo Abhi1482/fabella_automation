@@ -11,25 +11,10 @@ from oauth2client.service_account import ServiceAccountCredentials
 # =========================
 
 SHOP = os.environ["SHOP"]
-token_url = f"https://{SHOP}.myshopify.com/admin/oauth/access_token"
-
-token_data = {
-    "client_id": os.environ["CLIENT_ID"],
-    "client_secret": os.environ["CLIENT_SECRET"]
-}
-
-response = requests.post(token_url, data=token_data)
-
-print("Token Status:", response.status_code)
-
-if response.status_code != 200:
-    print("❌ Token Error:", response.text)
-    exit()
-
-ACCESS_TOKEN = response.json().get("access_token")
 
 
-# ACCESS_TOKEN = os.environ["SHOPIFY_ACCESS_TOKEN"]
+
+ACCESS_TOKEN = os.environ["SHOPIFY_ACCESS_TOKEN"]
 
 ACCESS_TOKEN_META = os.environ["META_ACCESS_TOKEN"]
 AD_ACCOUNT_FABELLA = os.environ["AD_ACCOUNT_FABELLA"]
