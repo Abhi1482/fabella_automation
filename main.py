@@ -14,7 +14,28 @@ SHOP = os.environ["SHOP"]
 
 
 
-ACCESS_TOKEN = os.environ["SHOPIFY_ACCESS_TOKEN"]
+
+token_url = f"https://{SHOP}.myshopify.com/admin/oauth/access_token"
+
+token_headers = {
+    "Content-Type": "application/x-www-form-urlencoded"
+}
+
+token_data = {
+    "grant_type": "client_credentials",
+    "client_id": os.environ["CLIENT_ID"],
+    "client_secret": os.environ["CLIENT_SECRET"]
+}
+
+token_response = requests.post(token_url, headers=token_headers, data=token_data)
+
+print("Token Status:", token_response.status_code)
+if token_response.status_code != 200:
+    print("Token Error:", token_response.text)
+    exit()
+
+token_json = token_response.json()
+ACCESS_TOKEN = token_json.get("access_token")
 
 ACCESS_TOKEN_META = os.environ["META_ACCESS_TOKEN"]
 AD_ACCOUNT_FABELLA = os.environ["AD_ACCOUNT_FABELLA"]
